@@ -68,8 +68,10 @@ void deinit(){
 	exit(0);
 
 }
-void takeinp(creature *ent){
+void takeinp(creature *ent, entity **map, item *itemarray){
 	int takeinp;
+	entity **tempmap = map;
+	item *tempitem = itemarray;
 	takeinp = getch();
 
 	switch(takeinp){
@@ -137,7 +139,8 @@ void takeinp(creature *ent){
 
 
 	}
-
+	itemarray = tempitem;
+	map = tempmap;
 
 
 
@@ -147,7 +150,7 @@ void takeinp(creature *ent){
 entity *drawarray(entity *ent){
 	int arraycount = 0;
 	entity *returnar = ent;
-	int derp = 0;
+	
 	
 	while(arraycount < ARRAY_SIZE_Y){
 		int s = ent->colour;
@@ -168,7 +171,7 @@ entity *drawarray(entity *ent){
 		}
 		arraycount++;
 		ent++;
-		derp++;
+		
 	
 	
 	}
@@ -182,7 +185,7 @@ void defineplayer(creature *ent){
 		ent->y = 20;
 		ent->display = '@';
 		ent->colour = 4;
-		ent->pairid = 1;
+		ent->pairid = 4;
 		ent->combatant = true;
 		
 }
@@ -198,7 +201,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '#';
 		ent->colour = 7;
-		ent->pairid = 3;
+		ent->pairid = 7;
 		ent->blocked = true;
 		ent->stairsdown = false;
 		ent->isvisible = true;
@@ -210,7 +213,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '>';
 		ent->colour = 3;
-		ent->pairid = 4;
+		ent->pairid = 3;
 		ent->blocked = false;
 		ent->stairsdown = true;
 		ent->isvisible = true;
@@ -223,7 +226,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '.';
 		ent->colour = 7;	
-		ent->pairid = 2;
+		ent->pairid = 7;
 		ent->blocked = false;
 		ent->stairsdown = false;
 		ent->isvisible = true;
@@ -237,3 +240,4 @@ void definefloor(entity *ent, int x, int y){
 	}
 
 }
+
