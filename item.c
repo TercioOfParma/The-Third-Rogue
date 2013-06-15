@@ -7,9 +7,32 @@ void defineitem(item *item, unsigned int x, unsigned int y)
 	if(x)
 	{
 		item->display = '!';
-		item->colour = 4;
+		item->colour = rand() % 7 + 1;;
 		item->kind = POTION;
-		item->pairid = 4;
+		item->pairid = item->colour;
+	
+	
+	}
+
+
+}
+
+void redefineitem(item *item, unsigned int x, unsigned int y)
+{
+	item->x = 0;
+	item->y = 0;
+	item->display = 0;
+	item->colour = 0;
+	item->kind = 0;
+	item->pairid = 0;
+	item->x = x;
+	item->y = y;
+	if(x)
+	{
+		item->display = '!';
+		item->colour = rand() % 7 + 1;;
+		item->kind = POTION;
+		item->pairid = item->colour;
 	
 	
 	}

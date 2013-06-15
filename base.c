@@ -2,8 +2,8 @@
 
 void clearmap(){//simply makes it dark
 int i = 0, j = 0;
-	while(i < ARRAY_SIZE_X){
-		while(j < ARRAY_SIZE_Y){
+	while(i < MAP_ARRAY_SIZE_X){
+		while(j < MAP_ARRAY_SIZE_Y){
 		mvaddch(i, j, ' ' );
 		j++;
 		
@@ -152,7 +152,7 @@ entity *drawarray(entity *ent){
 	entity *returnar = ent;
 	
 	
-	while(arraycount < ARRAY_SIZE_Y){
+	while(arraycount < MAP_ARRAY_SIZE_Y){
 		int s = ent->colour;
 		init_pair(ent->pairid , s, COLOR_BLACK);
 		if(ent->isvisible == true){
@@ -185,7 +185,7 @@ void defineplayer(creature *ent){
 		ent->y = 20;
 		ent->display = '@';
 		ent->colour = 4;
-		ent->pairid = 4;
+		ent->pairid = ent->colour;
 		ent->combatant = true;
 		
 }
@@ -201,7 +201,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '#';
 		ent->colour = 7;
-		ent->pairid = 7;
+		ent->pairid = ent->colour;
 		ent->blocked = true;
 		ent->stairsdown = false;
 		ent->isvisible = true;
@@ -213,7 +213,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '>';
 		ent->colour = 3;
-		ent->pairid = 3;
+		ent->pairid = ent->colour;
 		ent->blocked = false;
 		ent->stairsdown = true;
 		ent->isvisible = true;
@@ -226,7 +226,7 @@ void definefloor(entity *ent, int x, int y){
 		ent->y = y;
 		ent->display = '.';
 		ent->colour = 7;	
-		ent->pairid = 7;
+		ent->pairid = ent->colour;
 		ent->blocked = false;
 		ent->stairsdown = false;
 		ent->isvisible = true;
@@ -240,4 +240,39 @@ void definefloor(entity *ent, int x, int y){
 	}
 
 }
+void redefinemap(entity **map, item *items){
+	unsigned int i,j,itemdecider,itemcounter;
+	i = 0;
+	j = 0;
+	itemdecider = 0;
+	itemcounter = 0;
+	while(i < MAP_ARRAY_SIZE_X)
+	{
+		while(j < MAP_ARRAY_SIZE_Y)
+		{
+			itemdecider = rand() % 50 + 1;
+			definefloor(&map[i][j], i , j);//defines the thing
+			if(map[i][j].blocked == false && itemdecider == 5 && itemcounter < 20 + 1)
+			{
+				defineitem(&items[itemcounter], i , j);
+				
+				itemcounter++;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+		
+	}
+
+
+
+}
+
+
+
+
+
+
+
 
