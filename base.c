@@ -73,7 +73,9 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 	entity **tempmap = map;
 	item *tempitem = itemarray;
 	takeinp = getch();
-
+	
+	
+	
 	switch(takeinp){
 		
 		case KEY_LEFT:
@@ -108,19 +110,23 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 			mvaddch(ent->y, ent->x, ' ');
 			ent->x++;
 			ent->y--;
+			
 			break;
 		case KEY_B1:
 			mvaddch(ent->y, ent->x, ' ');
 			ent->x--;
+			
 			break;
 		case KEY_B3:
 			mvaddch(ent->y, ent->x, ' ');
 			ent->x++;
+			
 			break;
 		case KEY_C1:
 			mvaddch(ent->y, ent->x, ' ');
 			ent->x--;
 			ent->y++;
+			
 			break;
 		case KEY_C2:
 			mvaddch(ent->y, ent->x, ' ');
@@ -131,7 +137,17 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 			mvaddch(ent->y, ent->x, ' ');
 			ent->x++;
 			ent->y++;
+			
 			break;
+		case 62:
+			if(collisiontile(ent, &map[ent->x][ent->y]) == 2){
+				redefinemap(tempmap,tempitem);
+			
+			
+			}
+			break;
+		
+		
 			
 			
 		default:
@@ -139,6 +155,7 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 
 
 	}
+	
 	itemarray = tempitem;
 	map = tempmap;
 
@@ -252,18 +269,30 @@ void redefinemap(entity **map, item *items){
 		{
 			itemdecider = rand() % 50 + 1;
 			definefloor(&map[i][j], i , j);//defines the thing
-			if(map[i][j].blocked == false && itemdecider == 5 && itemcounter < 20 + 1)
-			{
-				defineitem(&items[itemcounter], i , j);
-				
-				itemcounter++;
-			}
+			
 			j++;
 		}
 		j = 0;
 		i++;
 		
 	}
+	i = 0;
+	j = 0;
+	while(itemcounter < DUNGEON_ITEMS){
+		i = rand() % 79 + 1;
+		j = rand() % 24 + 1;
+		itemdecider = rand() % 5 + 1;
+		if(itemdecider == 5 && map[i][j].blocked != true && itemcounter < DUNGEON_ITEMS)
+		{
+		
+			defineitem(&items[itemcounter], i, j);
+		
+			itemcounter++;
+		}
+	
+	
+	}
+	
 
 
 

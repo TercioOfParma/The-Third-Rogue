@@ -36,7 +36,7 @@ typedef struct
 	unsigned int x, y, oldx, oldy;
 	unsigned char colour, display;
 	unsigned char kind, pairid, combatant;
-	item inventory[26];
+	item *inventory[26];
 
 
 

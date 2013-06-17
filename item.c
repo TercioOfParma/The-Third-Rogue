@@ -58,3 +58,37 @@ void drawitemarray(item *itemarray)
 
 	itemarray =  temp;
 }
+
+
+
+void pickupitem(creature *player, item *item){
+	
+	unsigned char x = false;
+	unsigned char indexer = 0;
+	while(x != true){
+	
+	if(!player->inventory[indexer]){
+		player->inventory[indexer]->x = player->x;
+		player->inventory[indexer]->y = player->y;
+		player->inventory[indexer]->display = '!';
+		player->inventory[indexer]->colour = item->colour;
+		player->inventory[indexer]->kind = item->kind;
+		player->inventory[indexer]->pairid = item->colour;
+		
+		item->x = 1000;
+		item->y = 1000;
+		
+	
+	
+	x = true;
+	}
+	
+	indexer++;
+	
+	}
+	
+	
+
+
+
+}
