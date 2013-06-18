@@ -74,7 +74,7 @@ int main()
 		{
 			while(k < MAP_ARRAY_SIZE_Y){
 				collider = collisiontile(&player, &map[j][k]);
-				if(collider == 1 || player.x == 0 || player.x == MAP_ARRAY_SIZE_X + 1 || player.y == 0 || player.y == MAP_ARRAY_SIZE_Y){
+				if(collider == 1){
 					
 					player.x = player.oldx;
 					player.y = player.oldy;

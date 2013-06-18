@@ -15,7 +15,9 @@ void drawcreature(creature *ent);//updated from base.c 12/06/13
 void defineplayer(creature *ent);//updated from base.c 12/06/13
 void definefloor(entity *ent, int x, int y);//deemed alright from base.c 12/06/13
 int collisiontile(creature *one, entity *two);//updated from base.c 12/06/13
+int collisionitem(creature *one, item *two);
 entity *drawarray(entity *ent);//deemed ok 12/06/13
 void clearmap();//deemed ok from base.c 12/06/13
 void redefinemap(entity **map, item *items);
+void inventoryscreen(creature *ent);
 

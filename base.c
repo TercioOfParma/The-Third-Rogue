@@ -4,7 +4,7 @@ void clearmap(){//simply makes it dark
 int i = 0, j = 0;
 	while(i < MAP_ARRAY_SIZE_X){
 		while(j < MAP_ARRAY_SIZE_Y){
-		mvaddch(i, j, ' ' );
+		mvaddch(j, i, ' ' );
 		j++;
 		
 		}
@@ -73,7 +73,7 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 	entity **tempmap = map;
 	item *tempitem = itemarray;
 	takeinp = getch();
-	
+	int derpcount = 0;
 	
 	
 	switch(takeinp){
@@ -146,10 +146,25 @@ void takeinp(creature *ent, entity **map, item *itemarray){
 			
 			}
 			break;
-		
-		
+		case 'g'://added
 			
+			while(derpcount < DUNGEON_ITEMS){
+				if(collisionitem(ent, &itemarray[derpcount]) == true){
+				
+					pickupitem(ent, &itemarray[derpcount]);
+					
+					break;
+				}
 			
+				derpcount++;
+			}
+		
+		break;
+		case 'i'://added
+		
+			inventoryscreen(ent);
+			
+			break;
 		default:
 			break;
 
@@ -204,6 +219,10 @@ void defineplayer(creature *ent){
 		ent->colour = 4;
 		ent->pairid = ent->colour;
 		ent->combatant = true;
+		ent->inventory = malloc(sizeof(item) * 27);
+		
+		
+		
 		
 }
 
@@ -297,8 +316,61 @@ void redefinemap(entity **map, item *items){
 
 
 }
+int collisionitem(creature *one, item *two){//added
+	if(one->x == two->x && one->y == two->y){
+		return 1;
+	
+	
+	}
+	else{
+	
+	
+	}
 
 
+
+}
+void inventoryscreen(creature *ent){//added, so unchecked by GCC as are the others
+	clearmap();
+	int rowno = 5;
+	int counter = 1;
+	char slotaddress = 'A';
+	creature *temp = ent;
+	int mover = 0;
+	while(rowno < 31){
+		if(ent->inventory[counter].x == 0){
+				break;
+		
+		}
+		int colour = ent->inventory[counter].colour;
+		
+		init_pair(colour, colour, COLOR_BLACK);
+		mvaddch(rowno, 1 + mover, slotaddress);
+		addch(' ');
+		attron(COLOR_PAIR(colour));
+		addch(ent->inventory[counter].display);
+		addstr(ent->inventory[counter].name);
+		attroff(COLOR_PAIR(colour));
+		
+		rowno++;
+		counter++;
+		slotaddress++;
+		if(counter == 27){
+			break;
+		
+		}
+		if(rowno > 20){
+			mover = 14;
+			rowno = 5;
+		
+		
+		}
+		
+	}
+	getch();// this is temporary
+	ent = temp;
+
+}
 
 
 
